@@ -1,18 +1,24 @@
 ﻿using Flashcards;
 
-var manager = new DataManager("wordslist.json");
+var oxford = new OxfordDictionaryService(
+    "05c2296e",
+    "e7b7ae146f787fe665fee7ae88b7db16"
+    );
 
-var list = new WordList { Name = "My words!"};
-list.Cards.Add(new Flashcard
+var card = await oxford.GetWordDataAsync("ace");
+
+if (card != null)
 {
-    Word = "test",
-    Definition = "check something",
-    Status = LearningStatus.Learning
-});
-
-manager.SaveWordList(list);
-Console.WriteLine("Saved!");
-
-var loaded = manager.LoadWordList();
-Console.WriteLine($"Loaded: {loaded?.Name}");
-Console.WriteLine($"Words: {loaded?.WordCount}");
+    Console.WriteLine($"Word: {card.Word}");
+    Console.WriteLine($"Definition:  {card.Definition}");
+    Console.WriteLine($"Audip: {card.AudioUrl}");
+    Console.WriteLine($"Example: ");
+    foreach (var ex in card.Examples)
+    {
+        Console.WriteLine($" - {ex}");
+    }
+}
+    
+    
+    
+    
