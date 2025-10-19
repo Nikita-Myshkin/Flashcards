@@ -39,20 +39,12 @@ public class CardManager
 
     public void SaveAllLists()
     {
-        if (_allWordList.Count > 0)
-        {
-            _dataManager.SaveWordList(_allWordList[0]);
-        }
+        _dataManager.SaveAll(_allWordList);
     }
 
     public void LoadLists()
     {
-        var loaded = _dataManager.LoadWordList();
-        if (loaded != null)
-        {
-            _allWordList.Clear();
-            _allWordList.Add(loaded);
-        }
+        _allWordList = _dataManager.LoadAll();
     }
 }
 
